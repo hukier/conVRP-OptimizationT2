@@ -53,6 +53,8 @@ def load_instance(path):
     # Ventana de operación del depósito [aW, bW]
     if "depot_window" in data:
         depot_window = (float(data["depot_window"][0]), float(data["depot_window"][1]))
+    elif "depot_open" in data and "depot_close" in data:
+        depot_window = (float(data["depot_open"]), float(data["depot_close"]))
     elif depot in windows:
         depot_window = windows[depot]
     else:
@@ -74,9 +76,12 @@ def load_instance(path):
             )
             distance_matrix[(i, j)] = dist
 
-    # Matriz de tiempos de viaje tt_ij (asumiendo velocidad promedio = 1)
+    # Matriz de tiempos de viaje: tiempo = distancia / velocidad.
+    speed = float(data.get("speed", 1.0))
+    if speed <= 0:
+        raise ValueError("La velocidad promedio debe ser positiva.")
     travel_time_matrix = {
-        (i, j): dist for (i, j), dist in distance_matrix.items()
+        (i, j): dist / speed for (i, j), dist in distance_matrix.items()
     }
 
     # Cota Big-M segura: bW + max(tt_ij) + max(st_it)
