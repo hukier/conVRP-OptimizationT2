@@ -171,7 +171,7 @@ def generate_c101_instance():
 
 
 def generate_rc101_instance():
-    # Nodos 0 (depósito) y 1-18 (mixtos random-clustered) de Solomon RC101
+    # Nodos 0 (depósito) y 1-15 (mixtos random-clustered) de Solomon RC101
     nodes_raw = {
         0: {
             "x": 40.0,
@@ -240,15 +240,15 @@ def generate_rc101_instance():
             "x": 10.0,
             "y": 35.0,
             "demand": 20,
-            "demand_by_day": {"1": 20, "2": 20, "3": 20},
-            "service_time_by_day": {"1": 10, "2": 10, "3": 10},
+            "demand_by_day": {"1": 0, "2": 20, "3": 20},
+            "service_time_by_day": {"1": 0, "2": 10, "3": 10},
         },
         10: {
             "x": 10.0,
             "y": 40.0,
             "demand": 30,
-            "demand_by_day": {"1": 0, "2": 20, "3": 20},
-            "service_time_by_day": {"1": 0, "2": 10, "3": 10},
+            "demand_by_day": {"1": 20, "2": 20, "3": 0},
+            "service_time_by_day": {"1": 10, "2": 10, "3": 0},
         },
         11: {
             "x": 8.0,
@@ -261,8 +261,8 @@ def generate_rc101_instance():
             "x": 8.0,
             "y": 45.0,
             "demand": 20,
-            "demand_by_day": {"1": 20, "2": 20, "3": 0},
-            "service_time_by_day": {"1": 10, "2": 10, "3": 0},
+            "demand_by_day": {"1": 0, "2": 20, "3": 20},
+            "service_time_by_day": {"1": 0, "2": 10, "3": 10},
         },
         13: {
             "x": 5.0,
@@ -285,27 +285,6 @@ def generate_rc101_instance():
             "demand_by_day": {"1": 20, "2": 20, "3": 20},
             "service_time_by_day": {"1": 10, "2": 10, "3": 10},
         },
-        16: {
-            "x": 0.0,
-            "y": 40.0,
-            "demand": 20,
-            "demand_by_day": {"1": 0, "2": 20, "3": 20},
-            "service_time_by_day": {"1": 0, "2": 10, "3": 10},
-        },
-        17: {
-            "x": 0.0,
-            "y": 45.0,
-            "demand": 20,
-            "demand_by_day": {"1": 20, "2": 20, "3": 0},
-            "service_time_by_day": {"1": 10, "2": 10, "3": 0},
-        },
-        18: {
-            "x": 44.0,
-            "y": 5.0,
-            "demand": 20,
-            "demand_by_day": {"1": 20, "2": 15, "3": 20},
-            "service_time_by_day": {"1": 10, "2": 10, "3": 10},
-        },
     }
 
     # Ventanas de tiempo [a_i, b_i] de Solomon RC101
@@ -326,15 +305,12 @@ def generate_rc101_instance():
         13: [142, 172],
         14: [35, 65],
         15: [58, 88],
-        16: [72, 102],
-        17: [149, 179],
-        18: [87, 117],
     }
 
     return _build_instance(
-        "instance_2_rc101_18c",
+        "instance_2_rc101_15c",
         "Adapted from CVRPLIB Solomon RC101",
-        110,
+        90,
         nodes_raw,
         time_windows,
     )
@@ -354,7 +330,7 @@ def main():
 
     instances = (
         (generate_c101_instance(), "instance_1_c101_15c.json"),
-        (generate_rc101_instance(), "instance_2_rc101_18c.json"),
+        (generate_rc101_instance(), "instance_2_rc101_15c.json"),
     )
     for instance, filename in instances:
         save_instance(instance, data_dir / filename)

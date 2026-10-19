@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
     instance_files = [
         data_dir / "instance_1_c101_15c.json",
-        data_dir / "instance_2_rc101_18c.json",
+        data_dir / "instance_2_rc101_15c.json",
     ]
 
     print("=" * 70)
