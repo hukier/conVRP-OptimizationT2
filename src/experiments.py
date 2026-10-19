@@ -22,7 +22,7 @@ RESULTS_DIR = REPO_ROOT / "results"
 RESULTS_FILE = RESULTS_DIR / "results.csv"
 SENSITIVITY_FILE = RESULTS_DIR / "sensitivity.csv"
 
-INSTANCE_FILES = ("instance_1_c101_15c.json", "instance_2_rc101_18c.json")
+INSTANCE_FILES = ("instance_1_c101_15c.json", "instance_2_rc101_15c.json")
 TUNE_TIME_LIMIT = 120
 RESTRICTED_LICENSE_LIMIT = 2000
 
