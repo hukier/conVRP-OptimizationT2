@@ -12,6 +12,9 @@ pip install -r requirements.txt
 
 # ejecutar experimentos
 python3 ./src/experiments.py
+
+# adicional: graficar resultados
+python3 ./src/graph_generator.py ./results/results.csv --output-dir ./results/graficos_finales
 ```
 
 Los resultados son guardados en ./results/ con el nombre `resultados.csv` y `sensitivity.csv`.
