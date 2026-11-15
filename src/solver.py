@@ -1,6 +1,8 @@
 import gurobipy as gp
 from gurobipy import GRB
 from pathlib import Path
+import time
+from solver import solve_cplex_model
 
 
 def print_status(status):
@@ -82,6 +84,26 @@ def run_model(instance, build_model, params=None, relax=False):
     }
 
     return result, model, variables
+
+
+def solve_cplex_model(model):
+    """Resuelve y devuelve un dict con objetivo, gap (%), cota, tiempo y estado."""
+    t0 = time.time()
+    sol = model.solve()
+    elapsed = time.time() - t0
+    d = model.solve_details
+    res = {
+        "status": d.status,
+        "time": elapsed,
+        "obj": sol.objective_value if sol is not None else None,
+        "bound": getattr(d, "best_bound", None),
+        "gap_pct": None,
+    }
+    try:
+        res["gap_pct"] = 100 * d.mip_relative_gap
+    except Exception:  # LP: no hay gap
+        pass
+    return res
 
 
 if __name__ == "__main__":

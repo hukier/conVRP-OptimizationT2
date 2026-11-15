@@ -19,8 +19,7 @@ def load_instance(path):
         # Demandas por día: convertir llaves a int
         if "demand_by_day" in values:
             demand_by_day = {
-                int(day): float(qty)
-                for day, qty in values["demand_by_day"].items()
+                int(day): float(qty) for day, qty in values["demand_by_day"].items()
             }
         else:
             base_demand = float(values.get("demand", 0))
@@ -29,8 +28,7 @@ def load_instance(path):
         # Tiempo de servicio por día: convertir llaves a int
         if "service_time_by_day" in values:
             service_time_by_day = {
-                int(day): float(st)
-                for day, st in values["service_time_by_day"].items()
+                int(day): float(st) for day, st in values["service_time_by_day"].items()
             }
         else:
             base_st = float(values.get("service_time", 0))
@@ -199,15 +197,23 @@ if __name__ == "__main__":
         print(f"  - Depósito: Nodo {inst['depot']} | Horario: {inst['depot_window']}")
         print(f"  - Clientes: {len(inst['customers'])} clientes")
         print(f"  - Días de planificación: {inst['days']}")
-        print(f"  - Flota: {len(inst['vehicles'])} vehículos | Capacidad Q = {inst['capacity']}")
-        print(f"  - Capacidad total de la flota por día = {len(inst['vehicles']) * inst['capacity']}")
+        print(
+            f"  - Flota: {len(inst['vehicles'])} vehículos | Capacidad Q = {inst['capacity']}"
+        )
+        print(
+            f"  - Capacidad total de la flota por día = {len(inst['vehicles']) * inst['capacity']}"
+        )
         print(f"  - Cota Big-M calculada: {inst['big_m']}")
         print(f"  - Total órdenes activas O: {len(inst['active_orders'])}")
 
         print("  - Detalle por día:")
         for t in inst["days"]:
-            day_demand = sum(inst["nodes"][c]["demand_by_day"][t] for c in inst["customers"])
-            active_c = [c for c in inst["customers"] if inst["nodes"][c]["demand_by_day"][t] > 0]
+            day_demand = sum(
+                inst["nodes"][c]["demand_by_day"][t] for c in inst["customers"]
+            )
+            active_c = [
+                c for c in inst["customers"] if inst["nodes"][c]["demand_by_day"][t] > 0
+            ]
             pct_util = (day_demand / (len(inst["vehicles"]) * inst["capacity"])) * 100
             pct_act = (len(active_c) / len(inst["customers"])) * 100
             print(
@@ -215,4 +221,3 @@ if __name__ == "__main__":
                 f"Clientes activos = {len(active_c)}/{len(inst['customers'])} ({pct_act:5.1f}%)"
             )
     print("\n" + "=" * 70)
-

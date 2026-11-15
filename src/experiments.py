@@ -12,7 +12,7 @@ import pandas as pd
 from gurobipy import GRB
 
 from instance_loader import load_instance
-from model import build_model
+from gurobi_model import build_model
 from solver import run_model, STATUS_NAMES
 
 
